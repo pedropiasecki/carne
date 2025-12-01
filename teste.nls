@@ -1,9 +1,5 @@
 INPUT x
-
 INPUT y
 
-INPUT z
-
-w = x + y + z
-
+w = x+y
 PRINT w
