@@ -203,6 +203,11 @@ class PrintNode:
     def __init__(self, valorNode):
         self.valorNode = valorNode
 
+###
+class InputNode:
+    def __init__(self, token):
+        self.token = token
+
 
 class Parser:
     def __init__(self, tokens):
@@ -276,6 +281,15 @@ class Parser:
             expr = self.expr()
             return PrintNode(expr)
         
+        ###
+        if tok.tipo == TT_ID and tok.valor == 'INPUT':
+            self.avancar()
+            if self.tokenAtual.tipo != TT_ID:
+                raise ErroSintaxeInvalida("Esperava uma variavel após INPUT")
+            varToken = self.tokenAtual
+            self.avancar()
+            return InputNode(varToken)
+        
         if tok.tipo == TT_ID:
             varAux = tok
             self.avancar()
@@ -321,6 +335,19 @@ def avaliador(Node):
         valor = avaliador(Node.valorNode)
         print(valor)
         return valor
+    
+    ###
+    if isinstance(Node, InputNode):
+        nome = Node.token.valor
+        expressao = input(f"{nome}: ")
+        
+        resultado, erro = run("input", expressao)
+        if erro:
+            raise erro
+
+        nomeVariaveis[nome] = resultado
+        return resultado
+        
     
     if isinstance(Node, OpBinario):
         left = avaliador(Node.left)

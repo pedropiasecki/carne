@@ -1,0 +1,9 @@
+INPUT x
+
+INPUT y
+
+INPUT z
+
+w = x + y + z
+
+PRINT w
