@@ -341,7 +341,7 @@ def avaliador(Node):
         nome = Node.token.valor
         expressao = input(f"{nome}: ")
 
-        partes = expressao.replace("+", " ").replace("-", " ").replace("*", " ").replace("/", " ").split()
+        partes = expressao.replace("+", " ").replace("-", " ").replace("*", " ").replace("/", " ").replace("(", " ").replace(")", " ").split()
         for aux in partes:
             if aux.isalpha() and aux not in nomeVariaveis:
                 raise ErroSintaxeInvalida(f"Variável '{aux}' não declarada")
